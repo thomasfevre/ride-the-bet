@@ -1,8 +1,9 @@
-import { useActiveAccount, useWalletBalance } from "thirdweb/react";
-import { getContract } from "thirdweb";
+import { useState } from "react";
+import { useActiveAccount, useWalletBalance, useReadContract, TransactionButton } from "thirdweb/react";
+import { getContract, prepareContractCall } from "thirdweb";
 import { client, spicyTestnet } from "../lib/thirdweb";
-import { MOCK_PSG_ADDRESS, MOCK_PSG_ABI } from "../constants/contracts";
-import { useReadContract } from "thirdweb/react";
+import { MOCK_PSG_ADDRESS, MOCK_PSG_ABI, RIDETHEBET_ADDRESS, RIDETHEBET_ABI } from "../constants/contracts";
+import toast from "react-hot-toast";
 
 const psgContract = getContract({ 
   client, 
@@ -11,8 +12,17 @@ const psgContract = getContract({
   abi: MOCK_PSG_ABI 
 });
 
+const ridethebetContract = getContract({ 
+  client, 
+  chain: spicyTestnet, 
+  address: RIDETHEBET_ADDRESS,
+  abi: RIDETHEBET_ABI 
+});
+
 export default function WalletInfo() {
   const account = useActiveAccount();
+  const [influencerName, setInfluencerName] = useState("");
+  const [showRegistration, setShowRegistration] = useState(false);
   
   const { data: chzBalance, isLoading: isLoadingCHZ } = useWalletBalance({
     client,
@@ -23,6 +33,12 @@ export default function WalletInfo() {
   const { data: psgBalance, isLoading: isLoadingPSG } = useReadContract({
     contract: psgContract,
     method: "balanceOf",
+    params: [account?.address || "0x0"]
+  });
+
+  const { data: registeredName, isLoading: isLoadingName, refetch: refetchName } = useReadContract({
+    contract: ridethebetContract,
+    method: "influencerNames",
     params: [account?.address || "0x0"]
   });
 
@@ -40,6 +56,95 @@ export default function WalletInfo() {
       </div>
       
       <div className="space-y-4">
+        {/* Influencer Registration Status */}
+        <div className="p-4 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl border border-dynamic">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium text-dynamic flex items-center space-x-2">
+              <span className="text-lg">🎯</span>
+              <span>Influencer Status</span>
+            </span>
+            {isLoadingName && (
+              <div className="animate-pulse w-20 h-4 bg-dynamic-secondary/20 rounded"></div>
+            )}
+          </div>
+          
+          {registeredName && registeredName.length > 0 ? (
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-dynamic-secondary">Registered as:</span>
+              <span className="text-sm font-bold text-primary-600 dark:text-primary-400 bg-primary-100 dark:bg-primary-900/30 px-3 py-1 rounded-xl">
+                {registeredName}
+              </span>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-dynamic-secondary">Status:</span>
+                <span className="text-sm text-warning-600 dark:text-warning-400 bg-warning-100 dark:bg-warning-900/30 px-3 py-1 rounded-xl">
+                  Not Registered
+                </span>
+              </div>
+              
+              {!showRegistration ? (
+                <button
+                  onClick={() => setShowRegistration(true)}
+                  className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-medium py-2 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm"
+                >
+                  Register as Influencer 🚀
+                </button>
+              ) : (
+                <div className="space-y-3">
+                  <input
+                    type="text"
+                    value={influencerName}
+                    onChange={(e) => setInfluencerName(e.target.value)}
+                    placeholder="Enter your influencer name..."
+                    className="w-full px-3 py-2 bg-card-dynamic border border-dynamic rounded-xl text-dynamic text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                  />
+                  <div className="flex space-x-2">
+                    <TransactionButton
+                      transaction={() => {
+                        if (!influencerName.trim()) {
+                          throw new Error("Please enter a valid name");
+                        }
+                        return prepareContractCall({
+                          contract: ridethebetContract,
+                          method: "registerInfluencer",
+                          params: [influencerName.trim()],
+                        });
+                      }}
+                      onTransactionSent={() => {
+                        toast.success("Registration transaction sent!");
+                      }}
+                      onTransactionConfirmed={() => {
+                        toast.success("Successfully registered as influencer! 🎉");
+                        setShowRegistration(false);
+                        setInfluencerName("");
+                        refetchName();
+                      }}
+                      onError={(error) => {
+                        toast.error(`Registration failed: ${error.message}`);
+                      }}
+                      disabled={!influencerName.trim()}
+                      className="flex-1 bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-medium py-2 px-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm"
+                    >
+                      Register
+                    </TransactionButton>
+                    <button
+                      onClick={() => {
+                        setShowRegistration(false);
+                        setInfluencerName("");
+                      }}
+                      className="px-3 py-2 bg-card-dynamic border border-dynamic text-dynamic-secondary rounded-xl hover:bg-dynamic-secondary/10 transition-all duration-200 text-sm"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
         <div className="flex justify-between items-center p-3 bg-card-dynamic border border-dynamic rounded-2xl">
           <span className="text-sm text-dynamic-secondary font-medium">Address:</span>
           <span className="text-sm font-mono text-dynamic bg-card-dynamic border border-dynamic px-3 py-1 rounded-xl">
