@@ -4,6 +4,7 @@ import { getContract, prepareContractCall, toWei } from "thirdweb";
 import { client, spicyTestnet } from "../lib/thirdweb";
 import { RIDETHEBET_ADDRESS, RIDETHEBET_ABI, MOCK_PSG_ADDRESS } from "../constants/contracts";
 import { useBetCatalog } from "../hooks/useBetCatalog";
+import { ApprovalButton, useTokenApproval } from "../hooks/useTokenApproval";
 import toast from "react-hot-toast";
 
 const ridethebetContract = getContract({ 
@@ -60,6 +61,12 @@ export default function CreateBet() {
   const [stakeAmount, setStakeAmount] = useState("1");
   const account = useActiveAccount();
   const { matches, loading, error, getMatchById } = useBetCatalog();
+
+  // Check approval status for creating bets
+  const { needsApproval } = useTokenApproval({
+    spenderAddress: RIDETHEBET_ADDRESS,
+    amount: stakeAmount
+  });
 
   // Check if user is registered as an influencer
   const { data: registeredName, isLoading: isLoadingName } = 
@@ -382,52 +389,73 @@ export default function CreateBet() {
             </div>
           )}
 
-          {/* Submit Button */}
-          <TransactionButton
-            transaction={() => {
-              if (!selectedMatchId || !selectedBetTypeId || !selectedMatch) {
-                throw new Error("Please select both a match and bet type");
-              }
-              
-              return prepareContractCall({
-                contract: ridethebetContract,
-                method: "createBet",
-                params: [
-                  BigInt(selectedMatchId),
-                  selectedBetTypeId,
-                  MOCK_PSG_ADDRESS,
-                  toWei(stakeAmount),
-                  BigInt(selectedMatch.resolutionTimestamp)
-                ],
-              });
-            }}
-            onTransactionSent={() => {
-              toast.success("Transaction sent! Creating your prediction bet...");
-            }}
-            onTransactionConfirmed={() => {
-              toast.success("Prediction bet created successfully! 🎯");
-              setSelectedMatchId(null);
-              setSelectedBetTypeId(null);
-              setStakeAmount("1");
-            }}
-            onError={(error) => {
-              toast.error(`Failed to create bet: ${error.message}`);
-            }}
-            disabled={!selectedMatchId || !selectedBetTypeId || !stakeAmount}
-            className="w-full group relative overflow-hidden rounded-xl py-5 px-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative flex items-center justify-center space-x-3">
-              {selectedMatchId && selectedBetTypeId ? (
-                <>
-                  <span className="text-xl">🚀</span>
-                  <span>Create a Prediction Bet</span>
-                </>
-              ) : (
-                <span>Complete steps above to continue</span>
-              )}
-            </div>
-          </TransactionButton>
+          {/* Submit Button with Approval */}
+          <div className="space-y-3  flex items-center justify-center">
+            {/* Show approval button when approval is needed */}
+            {needsApproval && (
+              <div className="space-y-3 ">
+                
+                <ApprovalButton
+                  spenderAddress={RIDETHEBET_ADDRESS}
+                  amount={stakeAmount}
+                  onApprovalConfirmed={() => {
+                    toast.success("PSG tokens approved! You can now create your bet.");
+                  }}
+                >
+                  🔐 Approve {stakeAmount} PSG to Create Bet
+                </ApprovalButton>
+              </div>
+            )}
+
+            {/* Show create bet button only when approval is done */}
+            {!needsApproval && (
+              <TransactionButton
+                transaction={() => {
+                  if (!selectedMatchId || !selectedBetTypeId || !selectedMatch) {
+                    throw new Error("Please select both a match and bet type");
+                  }
+                  
+                  return prepareContractCall({
+                    contract: ridethebetContract,
+                    method: "createBet",
+                    params: [
+                      BigInt(selectedMatchId),
+                      selectedBetTypeId,
+                      MOCK_PSG_ADDRESS,
+                      toWei(stakeAmount),
+                      BigInt(selectedMatch.resolutionTimestamp)
+                    ],
+                  });
+                }}
+                onTransactionSent={() => {
+                  toast.success("Transaction sent! Creating your prediction bet...");
+                }}
+                onTransactionConfirmed={() => {
+                  toast.success("Prediction bet created successfully! 🎯");
+                  setSelectedMatchId(null);
+                  setSelectedBetTypeId(null);
+                  setStakeAmount("1");
+                }}
+                onError={(error) => {
+                  toast.error(`Failed to create bet: ${error.message}`);
+                }}
+                disabled={!selectedMatchId || !selectedBetTypeId || !stakeAmount}
+                className="w-full group relative overflow-hidden rounded-xl py-5 px-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-center justify-center space-x-3">
+                  {selectedMatchId && selectedBetTypeId ? (
+                    <>
+                      <span className="text-xl">🚀</span>
+                      <span>Create a Prediction Bet</span>
+                    </>
+                  ) : (
+                    <span>Complete steps above to continue</span>
+                  )}
+                </div>
+              </TransactionButton>
+            )}
+          </div>
         </div>
       </div>
     </div>

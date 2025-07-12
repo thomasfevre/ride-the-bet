@@ -5,6 +5,7 @@ import { RIDETHEBET_ADDRESS, RIDETHEBET_ABI } from "../constants/contracts";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useBetCatalog } from "../hooks/useBetCatalog";
+import { ApprovalButton, useTokenApproval } from "../hooks/useTokenApproval";
 
 interface BetCardProps {
   betId: number;
@@ -21,6 +22,12 @@ export default function BetCard({ betId }: BetCardProps) {
   const [voteAmount, setVoteAmount] = useState("1");
   const account = useActiveAccount();
   const { getBetDescription } = useBetCatalog();
+
+  // Check approval status for voting
+  const { needsApproval } = useTokenApproval({
+    spenderAddress: RIDETHEBET_ADDRESS,
+    amount: voteAmount
+  });
 
   const { data: bet, isLoading } = useReadContract({
     contract: ridethebetContract,
@@ -58,7 +65,7 @@ export default function BetCard({ betId }: BetCardProps) {
 
   if (!bet || !betIdentifiers) return null;
 
-  const [influencer, , , upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
+  const [influencer, , upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
   const [matchId, betTypeId] = betIdentifiers;
 
   // Get human-readable description from bet catalog
@@ -135,73 +142,91 @@ export default function BetCard({ betId }: BetCardProps) {
       )}
 
       {/* Action Buttons */}
-      {!isResolved && !isExpired && account && (
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="space-y-2">
+      {!isResolved && !isExpired && account && !userVoted && (
+        <div className="space-y-3 mb-3">
+          {/* Stake Amount Input */}
+          <div>
+            <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Stake Amount (PSG)
+            </label>
             <input
               type="number"
               value={voteAmount}
               onChange={(e) => setVoteAmount(e.target.value)}
               placeholder="Amount"
-              className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               min="0.1"
               step="0.1"
             />
-            <TransactionButton
-              transaction={() => {
-                const amount = toWei(voteAmount);
-                return prepareContractCall({
-                  contract: ridethebetContract,
-                  method: "upvote",
-                  params: [BigInt(betId), amount],
-                });
-              }}
-              onTransactionSent={(result) => {
-                console.log("Transaction submitted", result.transactionHash);
-                toast.loading("Supporting prediction...", { id: "support" });
-              }}
-              onTransactionConfirmed={(result) => {
-                console.log("Transaction confirmed", result.transactionHash);
-                toast.success("Successfully supported the prediction!", { id: "support" });
-              }}
-              className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 text-xs py-1 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
-            >
-              🔥 Support
-            </TransactionButton>
           </div>
-          
-          <div className="space-y-2">
-            <input
-              type="number"
-              value={voteAmount}
-              onChange={(e) => setVoteAmount(e.target.value)}
-              placeholder="Amount"
-              className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-              min="0.1"
-              step="0.1"
-            />
-            <TransactionButton
-              transaction={() => {
-                const amount = toWei(voteAmount);
-                return prepareContractCall({
-                  contract: ridethebetContract,
-                  method: "downvote",
-                  params: [BigInt(betId), amount],
-                });
-              }}
-              onTransactionSent={(result) => {
-                console.log("Transaction submitted", result.transactionHash);
-                toast.loading("Doubting prediction...", { id: "doubt" });
-              }}
-              onTransactionConfirmed={(result) => {
-                console.log("Transaction confirmed", result.transactionHash);
-                toast.success("Successfully doubted the prediction!", { id: "doubt" });
-              }}
-              className="w-full bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs py-1 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20"
-            >
-              🚫 Doubt
-            </TransactionButton>
-          </div>
+
+          {/* Show approval button when approval is needed */}
+          {needsApproval && (
+            <div className="space-y-2">
+              <div className="text-xs text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg border border-blue-200 dark:border-blue-800">
+                💡 First approve PSG tokens, then you can vote on this prediction
+              </div>
+              <ApprovalButton
+                spenderAddress={RIDETHEBET_ADDRESS}
+                amount={voteAmount}
+                onApprovalConfirmed={() => {
+                  toast.success("PSG tokens approved! You can now vote.");
+                }}
+                className="text-xs py-2"
+              >
+                🔐 Approve {voteAmount} PSG to Vote
+              </ApprovalButton>
+            </div>
+          )}
+
+          {/* Show voting buttons only when approval is done */}
+          {!needsApproval && (
+            <div className="grid grid-cols-2 gap-2">
+              <TransactionButton
+                transaction={() => {
+                  const amount = toWei(voteAmount);
+                  return prepareContractCall({
+                    contract: ridethebetContract,
+                    method: "upvote",
+                    params: [BigInt(betId), amount],
+                  });
+                }}
+                onTransactionSent={(result) => {
+                  console.log("Transaction submitted", result.transactionHash);
+                  toast.loading("Supporting prediction...", { id: "support" });
+                }}
+                onTransactionConfirmed={(result) => {
+                  console.log("Transaction confirmed", result.transactionHash);
+                  toast.success("Successfully supported the prediction!", { id: "support" });
+                }}
+                className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 text-xs py-2 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
+              >
+                🔥 Support
+              </TransactionButton>
+              
+              <TransactionButton
+                transaction={() => {
+                  const amount = toWei(voteAmount);
+                  return prepareContractCall({
+                    contract: ridethebetContract,
+                    method: "downvote",
+                    params: [BigInt(betId), amount],
+                  });
+                }}
+                onTransactionSent={(result) => {
+                  console.log("Transaction submitted", result.transactionHash);
+                  toast.loading("Doubting prediction...", { id: "doubt" });
+                }}
+                onTransactionConfirmed={(result) => {
+                  console.log("Transaction confirmed", result.transactionHash);
+                  toast.success("Successfully doubted the prediction!", { id: "doubt" });
+                }}
+                className="w-full bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs py-2 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20"
+              >
+                🚫 Doubt
+              </TransactionButton>
+            </div>
+          )}
         </div>
       )}
 
