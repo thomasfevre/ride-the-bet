@@ -50,7 +50,7 @@ export default function CreateBet() {
   // Check if user is registered as an influencer
   const { data: registeredName, isLoading: isLoadingName } = useReadContract({
     contract: ridethebetContract,
-    method: "influencerNames",
+    method: "getInfluencerPseudoByAddress",
     params: [account?.address || "0x0"]
   });
 
