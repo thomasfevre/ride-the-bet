@@ -28,24 +28,35 @@ export default function BetList() {
 
   if (!betCount || Number(betCount) === 0) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
-          Active Prediction Duels
-        </h2>
-        <div className="text-center py-8">
-          <div className="text-gray-400 text-4xl mb-4">🎯</div>
-          <p className="text-gray-500">No prediction duels yet. Be the first to create one!</p>
+      <div className="bg-card-dynamic border border-dynamic rounded-3xl shadow-dynamic p-8">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-8 h-8 bg-gradient-to-r from-accent-500 to-primary-500 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white text-sm">🎯</span>
+          </div>
+          <h2 className="text-lg font-bold text-dynamic">
+            Active Prediction Duels
+          </h2>
+        </div>
+        <div className="text-center py-12">
+          <div className="text-6xl mb-6 animate-float">🎯</div>
+          <h3 className="text-xl font-bold text-dynamic mb-2">No duels yet!</h3>
+          <p className="text-dynamic-secondary font-medium">Be the first to create a prediction duel and start earning!</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
-        Active Prediction Duels ({Number(betCount)})
-      </h2>
-      <div className="space-y-4">
+    <div className="space-y-6">
+      <div className="flex items-center space-x-3 mb-6">
+        <div className="w-8 h-8 bg-gradient-to-r from-accent-500 to-primary-500 rounded-xl flex items-center justify-center">
+          <span className="text-white text-sm">🎯</span>
+        </div>
+        <h2 className="text-xl font-bold gradient-text">
+          Active Prediction Duels ({Number(betCount)})
+        </h2>
+      </div>
+      <div className="space-y-6">
         {betIds.map((betId) => (
           <BetCard key={betId} betId={betId} />
         ))}

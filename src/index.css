@@ -1,1 +1,181 @@
 @import "tailwindcss";
+
+/* Custom CSS Variables for Modern Design */
+:root {
+  /* Light mode colors */
+  --color-primary: #ef4444; /* red-500 */
+  --color-secondary: #f97316; /* orange-500 */
+  --color-accent: #a855f7; /* purple-500 */
+  --color-success: #10b981; /* emerald-500 */
+  --color-warning: #f59e0b; /* amber-500 */
+  --color-danger: #dc2626; /* red-600 */
+  
+  /* Light mode backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --border-color: rgba(229, 231, 235, 0.5);
+  
+  /* Light mode text */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #a855f7 100%);
+  --gradient-secondary: linear-gradient(135deg, #f97316 0%, #a855f7 100%);
+  --gradient-bg-light: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f3f4f6 100%);
+  --gradient-bg-dark: linear-gradient(135deg, #111827 0%, #1f2937 50%, #0f172a 100%);
+  
+  /* Shadows */
+  --shadow-glow: 0 0 20px rgba(239, 68, 68, 0.3);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode colors */
+.dark {
+  /* Dark mode colors - keep vibrant accents */
+  --color-primary: #f87171; /* red-400 - brighter for dark mode */
+  --color-secondary: #fb923c; /* orange-400 */
+  --color-accent: #c084fc; /* purple-400 */
+  --color-success: #34d399; /* emerald-400 */
+  --color-warning: #fbbf24; /* amber-400 */
+  --color-danger: #ef4444; /* red-500 */
+  
+  /* Dark mode backgrounds */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-card: rgba(31, 41, 55, 0.8);
+  --border-color: rgba(75, 85, 99, 0.5);
+  
+  /* Dark mode text */
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  
+  /* Dark mode gradients */
+  --gradient-primary: linear-gradient(135deg, #f87171 0%, #fb923c 50%, #c084fc 100%);
+  --gradient-secondary: linear-gradient(135deg, #fb923c 0%, #c084fc 100%);
+  
+  /* Dark mode shadows */
+  --shadow-glow: 0 0 20px rgba(248, 113, 113, 0.4);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-secondary);
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility classes */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom utility classes using CSS variables */
+.bg-dynamic {
+  background-color: var(--bg-primary);
+}
+
+.bg-dynamic-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-card-dynamic {
+  background-color: var(--bg-card);
+  backdrop-filter: blur(12px);
+}
+
+.border-dynamic {
+  border-color: var(--border-color);
+}
+
+.text-dynamic {
+  color: var(--text-primary);
+}
+
+.text-dynamic-secondary {
+  color: var(--text-secondary);
+}
+
+.text-dynamic-muted {
+  color: var(--text-muted);
+}
+
+.gradient-bg-dynamic {
+  background: var(--gradient-bg-light);
+}
+
+.dark .gradient-bg-dynamic {
+  background: var(--gradient-bg-dark);
+}
+
+.shadow-dynamic {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-hover-dynamic:hover {
+  box-shadow: var(--shadow-hover);
+}

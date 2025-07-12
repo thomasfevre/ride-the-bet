@@ -16,6 +16,39 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "_matchId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_betTypeId",
+				"type": "uint8"
+			},
+			{
+				"internalType": "address",
+				"name": "_tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_influencerStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_resolutionTimestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "createBet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "_initialMinimumStake",
 				"type": "uint256"
 			},
@@ -67,9 +100,15 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "string",
-				"name": "description",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "matchId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "betTypeId",
+				"type": "uint8"
 			},
 			{
 				"indexed": false,
@@ -99,34 +138,6 @@
 		],
 		"name": "BetResolved",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_tokenAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_influencerStake",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_resolutionTimestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "createBet",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"inputs": [
@@ -330,17 +341,36 @@
 				"type": "uint256"
 			}
 		],
+		"name": "betIdentifiers",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "matchId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "betTypeId",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"name": "bets",
 		"outputs": [
 			{
 				"internalType": "address",
 				"name": "influencer",
 				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "description",
-				"type": "string"
 			},
 			{
 				"internalType": "address",
@@ -440,17 +470,17 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "address",
 				"name": "",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"name": "influencerNames",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "string",
 				"name": "",
-				"type": "address"
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

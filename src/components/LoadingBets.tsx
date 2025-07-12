@@ -2,7 +2,7 @@ import { LoadingSpinner } from "./ui/LoadingSpinner";
 
 export default function LoadingBets() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="gradient-bg-dynamic  rounded-lg shadow p-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">
         Active Prediction Duels
       </h2>

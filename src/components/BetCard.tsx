@@ -45,7 +45,7 @@ export default function BetCard({ betId }: BetCardProps) {
   });
 
   if (isLoading) {
-    return <div className="animate-pulse h-32 bg-gray-200 rounded-lg"></div>;
+    return <div className="animate-pulse h-32 bg-card-dynamic rounded-3xl"></div>;
   }
 
   if (!bet) return null;
@@ -77,18 +77,18 @@ export default function BetCard({ betId }: BetCardProps) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+    <div className="bg-card-dynamic border border-dynamic rounded-3xl p-6 shadow-dynamic hover:shadow-hover-dynamic transition-all duration-300">
       {/* Header */}
-      <div className="flex justify-between items-start mb-3">
+      <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-medium text-gray-500">#{betId}</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-medium text-dynamic-muted">#{betId}</span>
             <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}>
               {getStatusText()}
             </span>
           </div>
-          <p className="text-sm font-medium text-gray-900">{description}</p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-sm font-medium text-dynamic">{description}</p>
+          <p className="text-xs text-dynamic-muted mt-1">
             by {influencer.slice(0, 6)}...{influencer.slice(-4)}
           </p>
         </div>
@@ -96,27 +96,29 @@ export default function BetCard({ betId }: BetCardProps) {
 
       {/* Pool Information */}
       <div className="mb-4">
-        <div className="flex justify-between text-xs text-gray-600 mb-1">
+        <div className="flex justify-between text-xs text-dynamic-secondary mb-2">
           <span>Supporters ({(Number(upvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
           <span>Doubters ({(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-dynamic-secondary/20 rounded-full h-3 mb-2">
           <div 
-            className="bg-green-500 h-2 rounded-full transition-all duration-300"
+            className="bg-gradient-to-r from-success-500 to-primary-500 h-3 rounded-full transition-all duration-300 shadow-sm"
             style={{ width: `${upvotePercentage}%` }}
           ></div>
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-dynamic-muted">
           Resolves: {resolutionDate.toLocaleDateString()} {resolutionDate.toLocaleTimeString()}
         </p>
       </div>
 
       {/* User's Stake Info */}
       {userVoted && (
-        <div className="mb-3 p-2 bg-gray-50 rounded text-xs">
-          <span className="font-medium">Your stake: </span>
-          {userVotedUp && `${(Number(userUpvoteStake) / 10**18).toFixed(2)} PSG (Supporting)`}
-          {userVotedDown && `${(Number(userDownvoteStake) / 10**18).toFixed(2)} PSG (Doubting)`}
+        <div className="mb-4 p-3 bg-card-dynamic border border-dynamic rounded-2xl text-xs">
+          <span className="font-medium text-dynamic">Your stake: </span>
+          <span className="text-dynamic-secondary">
+            {userVotedUp && `${(Number(userUpvoteStake) / 10**18).toFixed(2)} PSG (Supporting)`}
+            {userVotedDown && `${(Number(userDownvoteStake) / 10**18).toFixed(2)} PSG (Doubting)`}
+          </span>
         </div>
       )}
 
