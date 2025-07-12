@@ -402,7 +402,7 @@ export default function CreateBet() {
                     toast.success("PSG tokens approved! You can now create your bet.");
                   }}
                 >
-                  🔐 Approve {stakeAmount} PSG to Create Bet
+                  🔐 Approve {stakeAmount} PSG to Create a Bet
                 </ApprovalButton>
               </div>
             )}

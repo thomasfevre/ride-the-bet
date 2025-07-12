@@ -7,6 +7,7 @@ import WalletInfo from "./components/WalletInfo";
 import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
 import DarkModeToggle from "./components/DarkModeToggle";
+import Leaderboard from "./components/Leaderboard";
 import { Modal } from "./components/ui/Modal";
 import { Button } from "./components/ui/Button";
 import { BetCatalogProvider } from "./hooks/useBetCatalog";
@@ -14,6 +15,7 @@ import { useState } from "react";
 
 function App() {
   const [isCreateBetModalOpen, setIsCreateBetModalOpen] = useState(false);
+  const [isLeaderboardModalOpen, setIsLeaderboardModalOpen] = useState(false);
 
   return (
     <BetCatalogProvider>
@@ -39,6 +41,18 @@ function App() {
               </div>
 
               <div className="flex items-center space-x-4">
+                <Button
+                  onClick={() => setIsCreateBetModalOpen(true)}
+                  className="neumorphic-button bg-gradient-to-r from-primary-500 to-secondary-500 text-white"
+                >
+                  Create a Bet
+                </Button>
+                <Button
+                  onClick={() => setIsLeaderboardModalOpen(true)}
+                  className="neumorphic-button bg-gradient-to-r from-yellow-400 to-orange-500 text-black"
+                >
+                  🏆 Leaderboard
+                </Button>
                 <DarkModeToggle />
                 <ConnectButton
                   client={client}
@@ -137,6 +151,16 @@ function App() {
           size="xl"
         >
           <CreateBet />
+        </Modal>
+
+        {/* Leaderboard Modal */}
+        <Modal
+          isOpen={isLeaderboardModalOpen}
+          onClose={() => setIsLeaderboardModalOpen(false)}
+          title="🏆 Influencer Leaderboard"
+          size="xl"
+        >
+          <Leaderboard />
         </Modal>
       </div>
     </BetCatalogProvider>

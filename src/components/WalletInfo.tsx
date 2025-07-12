@@ -78,18 +78,15 @@ const { data: registeredName, isLoading: isLoadingName, refetch: refetchName } =
           
           {registeredName && registeredName.length > 0 ? (
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-dynamic-secondary">Registered as:</span>
-                <span className="text-sm font-bold text-dynamic bg-primary-100 dark:bg-primary-900/30 px-3 py-1 rounded-xl">
-                  {registeredName}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2 text-xs text-dynamic-secondary">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="flex items-center text-dynamic-secondary">
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                <span className="text-dynamic-secondary">Verified Influencer - You can create prediction bets!</span>
+                <span className="text-sm text-dynamic-secondary mx-2">Registered as:</span>
+                              <span className="text-dynamic-secondary">{registeredName}</span>
+                              <span className="text-sm text-dynamic-secondary mx-16"> You can create prediction bets !</span>
               </div>
+              
             </div>
           ) : (
             <div className="space-y-3">
