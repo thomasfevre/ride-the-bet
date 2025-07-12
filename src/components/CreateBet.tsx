@@ -48,11 +48,16 @@ export default function CreateBet() {
   const { matches, loading, error, getMatchById } = useBetCatalog();
 
   // Check if user is registered as an influencer
-  const { data: registeredName, isLoading: isLoadingName } = useReadContract({
-    contract: ridethebetContract,
-    method: "getInfluencerPseudoByAddress",
-    params: [account?.address || "0x0"]
-  });
+  const { data: registeredName, isLoading: isLoadingName } = 
+    useReadContract({
+        contract: ridethebetContract,
+        method: "influencerNames",
+        params: [account?.address!], // Pass the address directly
+        // This hook will only run when account.address is defined
+        queryOptions: {
+            enabled: !!account?.address 
+        }
+      });
 
   const selectedMatch = selectedMatchId ? getMatchById(selectedMatchId) : null;
   const isRegisteredInfluencer = registeredName && registeredName.length > 0;
@@ -144,7 +149,7 @@ export default function CreateBet() {
         </div>
         <div className="text-right">
           <p className="text-xs text-dynamic-secondary">Creating as:</p>
-          <p className="text-sm font-bold text-primary-600 dark:text-primary-400">
+          <p className="text-sm font-bold text-dynamic">
             {registeredName}
           </p>
         </div>
@@ -166,10 +171,10 @@ export default function CreateBet() {
                   setSelectedBetTypeId(null); // Reset bet type when match changes
                   setActiveCategory('general'); // Reset to general category
                 }}
-                className={`p-4 rounded-xl text-left transition-all duration-200 ${
+                className={`p-4 rounded-lg text-left transition-all duration-200 ${
                   selectedMatchId === match.matchId
-                    ? 'bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border-2 border-primary-500 shadow-lg scale-[1.02]'
-                    : 'bg-card-dynamic border border-dynamic hover:border-primary-300 hover:shadow-md hover:scale-[1.01]'
+                    ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white border-2 border-gray-700 shadow-lg scale-[1.02] dark:from-white dark:to-gray-100 dark:text-gray-900 dark:border-gray-300'
+                    : 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 hover:shadow-md hover:scale-[1.01] dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -185,8 +190,8 @@ export default function CreateBet() {
                     </p>
                   </div>
                   {selectedMatchId === match.matchId && (
-                    <div className="flex-shrink-0 w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center ml-3">
-                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="flex-shrink-0 w-6 h-6 bg-gray-800 dark:bg-white rounded-full flex items-center justify-center ml-3">
+                      <svg className="w-4 h-4 text-white dark:text-gray-900" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
@@ -232,10 +237,10 @@ export default function CreateBet() {
                           key={category}
                           type="button"
                           onClick={() => setActiveCategory(category)}
-                          className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-200 whitespace-nowrap ${
+                          className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 whitespace-nowrap ${
                             activeCategory === category
-                              ? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-lg'
-                              : 'bg-card-dynamic border border-dynamic text-dynamic-secondary hover:text-dynamic hover:border-primary-300'
+                              ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg dark:from-white dark:to-gray-100 dark:text-gray-900'
+                              : 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20'
                           }`}
                         >
                           <span className="text-lg">{categoryIcons[category]}</span>
@@ -256,10 +261,10 @@ export default function CreateBet() {
                         type="button"
                         onClick={() => setSelectedBetTypeId(betType.betTypeId)}
                         style={{ animationDelay: `${index * 50}ms` }}
-                        className={`p-4 rounded-xl text-left transition-all duration-200 animate-slide-in-up ${
+                        className={`p-4 rounded-lg text-left transition-all duration-200 animate-slide-in-up ${
                           selectedBetTypeId === betType.betTypeId
-                            ? 'bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border-2 border-primary-500 shadow-lg scale-105 animate-pulse-glow'
-                            : 'bg-card-dynamic border border-dynamic hover:border-primary-300 hover:shadow-md hover:scale-[1.02]'
+                            ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white border-2 border-gray-700 shadow-lg scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:border-gray-300'
+                            : 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 hover:shadow-md hover:scale-[1.02] dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20'
                         }`}
                       >
                         <div className="flex items-start justify-between">
@@ -267,8 +272,8 @@ export default function CreateBet() {
                             {betType.betDescription}
                           </span>
                           {selectedBetTypeId === betType.betTypeId && (
-                            <div className="flex-shrink-0 w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center ml-2 animate-bounce-in">
-                              <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="flex-shrink-0 w-5 h-5 bg-gray-800 dark:bg-white rounded-full flex items-center justify-center ml-2 animate-bounce-in">
+                              <svg className="w-3 h-3 text-white dark:text-gray-900" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
@@ -294,7 +299,7 @@ export default function CreateBet() {
             step="0.1"
             value={stakeAmount}
             onChange={(e) => setStakeAmount(e.target.value)}
-            className="w-full px-4 py-3 bg-card-dynamic border border-dynamic rounded-2xl text-dynamic focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-4 py-3 bg-card-dynamic border border-dynamic rounded-lg text-dynamic focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
             placeholder="1.0"
           />
         </div>
@@ -351,7 +356,7 @@ export default function CreateBet() {
             toast.error(`Failed to create bet: ${error.message}`);
           }}
           disabled={!selectedMatchId || !selectedBetTypeId || !stakeAmount}
-          className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
         >
           {selectedMatchId && selectedBetTypeId ? "Create Prediction Duel 🚀" : "Select Match & Bet Type"}
         </TransactionButton>

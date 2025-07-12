@@ -164,7 +164,7 @@ export default function BetCard({ betId }: BetCardProps) {
                 console.log("Transaction confirmed", result.transactionHash);
                 toast.success("Successfully supported the prediction!", { id: "support" });
               }}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-2 rounded disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 text-xs py-1 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
             >
               🔥 Support
             </TransactionButton>
@@ -197,7 +197,7 @@ export default function BetCard({ betId }: BetCardProps) {
                 console.log("Transaction confirmed", result.transactionHash);
                 toast.success("Successfully doubted the prediction!", { id: "doubt" });
               }}
-              className="w-full bg-red-500 hover:bg-red-600 text-white text-xs py-1 px-2 rounded disabled:opacity-50"
+              className="w-full bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs py-1 px-2 rounded-lg disabled:opacity-50 transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20"
             >
               🚫 Doubt
             </TransactionButton>
@@ -219,7 +219,7 @@ export default function BetCard({ betId }: BetCardProps) {
           onTransactionConfirmed={(result) => {
             console.log("Claim transaction confirmed", result.transactionHash);
           }}
-          className="w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-2 px-4 rounded font-medium"
+          className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 text-sm py-2 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
         >
           🎉 Claim Winnings
         </TransactionButton>
@@ -234,7 +234,7 @@ export default function BetCard({ betId }: BetCardProps) {
               method: "resolveBet",
               params: [BigInt(betId), true],
             })}
-            className="bg-green-600 hover:bg-green-700 text-white text-xs py-1 px-2 rounded"
+            className="bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 text-xs py-1 px-2 rounded-lg transition-all duration-200 hover:scale-105 dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200"
           >
             Resolve: Correct
           </TransactionButton>
@@ -244,7 +244,7 @@ export default function BetCard({ betId }: BetCardProps) {
               method: "resolveBet",
               params: [BigInt(betId), false],
             })}
-            className="bg-red-600 hover:bg-red-700 text-white text-xs py-1 px-2 rounded"
+            className="bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs py-1 px-2 rounded-lg transition-all duration-200 hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800/20"
           >
             Resolve: Wrong
           </TransactionButton>

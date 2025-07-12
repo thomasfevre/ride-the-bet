@@ -40,7 +40,7 @@ function App() {
                   chains={[spicyTestnet]}
                   theme="dark"
                   connectButton={{
-                    className: "!bg-gradient-to-r !from-primary-500 !to-secondary-500 !text-white !font-semibold !px-6 !py-2 !rounded-2xl !border-0 hover:!shadow-glow !transition-all !duration-300 hover:!scale-105"
+                    className: "!bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 shadow-lg hover:shadow-xl dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200 rounded-lg" 
                   }}
                 />
               </div>
@@ -84,7 +84,7 @@ function App() {
         <Toaster 
           position="bottom-right"
           toastOptions={{
-            className: "!bg-white !dark:bg-gray-800 !text-gray-900 !dark:text-white !border !border-gray-200 !dark:border-gray-700 !rounded-2xl !shadow-hover",
+            className: "!bg-white !dark:bg-gray-800 !text-gray-900 !dark:text-white !border !border-gray-200 !dark:border-gray-700 !rounded-lg !shadow-hover",
             duration: 4000,
             success: {
               iconTheme: {
