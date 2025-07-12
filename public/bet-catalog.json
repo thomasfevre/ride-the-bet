@@ -14,11 +14,95 @@
       },
       {
         "betTypeId": 3,
-        "betDescription": "Kylian Mbappé to score anytime"
+        "betDescription": "Draw"
       },
       {
         "betTypeId": 4,
+        "betDescription": "Over 1.5 total goals"
+      },
+      {
+        "betTypeId": 5,
         "betDescription": "Over 2.5 total goals"
+      },
+      {
+        "betTypeId": 6,
+        "betDescription": "Over 3.5 total goals"
+      },
+      {
+        "betTypeId": 7,
+        "betDescription": "Over 4.5 total goals"
+      },
+      {
+        "betTypeId": 8,
+        "betDescription": "Under 2.5 total goals"
+      },
+      {
+        "betTypeId": 9,
+        "betDescription": "Both teams to score"
+      },
+      {
+        "betTypeId": 10,
+        "betDescription": "Clean sheet for PSG"
+      },
+      {
+        "betTypeId": 11,
+        "betDescription": "Clean sheet for Manchester City"
+      },
+      {
+        "betTypeId": 12,
+        "betDescription": "Kylian Mbappé to score anytime"
+      },
+      {
+        "betTypeId": 13,
+        "betDescription": "Erling Haaland to score anytime"
+      },
+      {
+        "betTypeId": 14,
+        "betDescription": "Kevin De Bruyne to score anytime"
+      },
+      {
+        "betTypeId": 15,
+        "betDescription": "Neymar to score anytime"
+      },
+      {
+        "betTypeId": 16,
+        "betDescription": "Lionel Messi to score anytime"
+      },
+      {
+        "betTypeId": 17,
+        "betDescription": "Mbappé to score 2+ goals"
+      },
+      {
+        "betTypeId": 18,
+        "betDescription": "Haaland to score 2+ goals"
+      },
+      {
+        "betTypeId": 19,
+        "betDescription": "PSG to score first"
+      },
+      {
+        "betTypeId": 20,
+        "betDescription": "Manchester City to score first"
+      },
+      {
+        "betTypeId": 21,
+        "betDescription": "Match to go to extra time"
+      },
+      {
+        "betTypeId": 22,
+        "betDescription": "Match decided by penalties"
+      },
+      {
+        "betTypeId": 23,
+        "betDescription": "Red card to be shown"
+      },
+      {
+        "betTypeId": 24,
+        "betDescription": "PSG to win by 2+ goals"
+      },
+      {
+        "betTypeId": 25,
+        "betDescription": "Manchester City to win by 2+ goals"
       }
     ]
   },
@@ -36,12 +120,76 @@
         "betDescription": "Juventus to win"
       },
       {
+        "betTypeId": 3,
+        "betDescription": "Draw"
+      },
+      {
+        "betTypeId": 4,
+        "betDescription": "Over 1.5 total goals"
+      },
+      {
         "betTypeId": 5,
-        "betDescription": "AC Milan to keep a clean sheet"
+        "betDescription": "Over 2.5 total goals"
       },
       {
         "betTypeId": 6,
+        "betDescription": "Over 3.5 total goals"
+      },
+      {
+        "betTypeId": 8,
+        "betDescription": "Under 2.5 total goals"
+      },
+      {
+        "betTypeId": 9,
         "betDescription": "Both teams to score"
+      },
+      {
+        "betTypeId": 10,
+        "betDescription": "AC Milan to keep a clean sheet"
+      },
+      {
+        "betTypeId": 11,
+        "betDescription": "Juventus to keep a clean sheet"
+      },
+      {
+        "betTypeId": 26,
+        "betDescription": "Rafael Leão to score anytime"
+      },
+      {
+        "betTypeId": 27,
+        "betDescription": "Olivier Giroud to score anytime"
+      },
+      {
+        "betTypeId": 28,
+        "betDescription": "Dušan Vlahović to score anytime"
+      },
+      {
+        "betTypeId": 29,
+        "betDescription": "Federico Chiesa to score anytime"
+      },
+      {
+        "betTypeId": 30,
+        "betDescription": "Weston McKennie to score anytime"
+      },
+      {
+        "betTypeId": 19,
+        "betDescription": "AC Milan to score first"
+      },
+      {
+        "betTypeId": 20,
+        "betDescription": "Juventus to score first"
+      },
+      {
+        "betTypeId": 23,
+        "betDescription": "Red card to be shown"
+      },
+      {
+        "betTypeId": 31,
+        "betDescription": "Over 8.5 total corners"
+      },
+      {
+        "betTypeId": 32,
+        "betDescription": "Over 4.5 total cards"
       }
     ]
   },
@@ -59,8 +207,357 @@
         "betDescription": "Boston Celtics to win"
       },
       {
+        "betTypeId": 33,
+        "betDescription": "Over 210.5 total points"
+      },
+      {
+        "betTypeId": 34,
+        "betDescription": "Over 220.5 total points"
+      },
+      {
+        "betTypeId": 35,
+        "betDescription": "Over 230.5 total points"
+      },
+      {
+        "betTypeId": 36,
+        "betDescription": "Under 210.5 total points"
+      },
+      {
+        "betTypeId": 37,
+        "betDescription": "LeBron James Over 25.5 points"
+      },
+      {
+        "betTypeId": 38,
+        "betDescription": "LeBron James Over 30.5 points"
+      },
+      {
+        "betTypeId": 39,
+        "betDescription": "LeBron James Over 8.5 assists"
+      },
+      {
+        "betTypeId": 40,
+        "betDescription": "LeBron James Over 7.5 rebounds"
+      },
+      {
+        "betTypeId": 41,
+        "betDescription": "Jayson Tatum Over 25.5 points"
+      },
+      {
+        "betTypeId": 42,
+        "betDescription": "Jayson Tatum Over 30.5 points"
+      },
+      {
+        "betTypeId": 43,
+        "betDescription": "Anthony Davis Over 20.5 points"
+      },
+      {
+        "betTypeId": 44,
+        "betDescription": "Anthony Davis Over 10.5 rebounds"
+      },
+      {
+        "betTypeId": 45,
+        "betDescription": "Jaylen Brown Over 20.5 points"
+      },
+      {
+        "betTypeId": 46,
+        "betDescription": "Lakers to win by 5+ points"
+      },
+      {
+        "betTypeId": 47,
+        "betDescription": "Celtics to win by 5+ points"
+      },
+      {
+        "betTypeId": 48,
+        "betDescription": "Game to go to overtime"
+      },
+      {
+        "betTypeId": 49,
+        "betDescription": "LeBron triple-double"
+      },
+      {
+        "betTypeId": 50,
+        "betDescription": "Tatum triple-double"
+      }
+    ]
+  },
+  {
+    "matchId": 103,
+    "matchDescription": "Real Madrid vs. Barcelona (El Clásico)",
+    "resolutionTimestamp": 1758861600,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "Real Madrid to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Barcelona to win"
+      },
+      {
+        "betTypeId": 3,
+        "betDescription": "Draw"
+      },
+      {
+        "betTypeId": 4,
+        "betDescription": "Over 1.5 total goals"
+      },
+      {
+        "betTypeId": 5,
+        "betDescription": "Over 2.5 total goals"
+      },
+      {
+        "betTypeId": 6,
+        "betDescription": "Over 3.5 total goals"
+      },
+      {
         "betTypeId": 7,
-        "betDescription": "LeBron James to score Over 25.5 points"
+        "betDescription": "Over 4.5 total goals"
+      },
+      {
+        "betTypeId": 8,
+        "betDescription": "Under 2.5 total goals"
+      },
+      {
+        "betTypeId": 9,
+        "betDescription": "Both teams to score"
+      },
+      {
+        "betTypeId": 51,
+        "betDescription": "Karim Benzema to score anytime"
+      },
+      {
+        "betTypeId": 52,
+        "betDescription": "Robert Lewandowski to score anytime"
+      },
+      {
+        "betTypeId": 53,
+        "betDescription": "Vinícius Jr. to score anytime"
+      },
+      {
+        "betTypeId": 54,
+        "betDescription": "Pedri to score anytime"
+      },
+      {
+        "betTypeId": 55,
+        "betDescription": "Gavi to score anytime"
+      },
+      {
+        "betTypeId": 56,
+        "betDescription": "Jude Bellingham to score anytime"
+      },
+      {
+        "betTypeId": 17,
+        "betDescription": "Benzema to score 2+ goals"
+      },
+      {
+        "betTypeId": 57,
+        "betDescription": "Lewandowski to score 2+ goals"
+      },
+      {
+        "betTypeId": 19,
+        "betDescription": "Real Madrid to score first"
+      },
+      {
+        "betTypeId": 20,
+        "betDescription": "Barcelona to score first"
+      },
+      {
+        "betTypeId": 23,
+        "betDescription": "Red card to be shown"
+      },
+      {
+        "betTypeId": 24,
+        "betDescription": "Real Madrid to win by 2+ goals"
+      },
+      {
+        "betTypeId": 58,
+        "betDescription": "Barcelona to win by 2+ goals"
+      },
+      {
+        "betTypeId": 31,
+        "betDescription": "Over 8.5 total corners"
+      },
+      {
+        "betTypeId": 32,
+        "betDescription": "Over 4.5 total cards"
+      }
+    ]
+  },
+  {
+    "matchId": 202,
+    "matchDescription": "Golden State Warriors vs. Phoenix Suns (NBA)",
+    "resolutionTimestamp": 1759209600,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "Golden State Warriors to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Phoenix Suns to win"
+      },
+      {
+        "betTypeId": 33,
+        "betDescription": "Over 210.5 total points"
+      },
+      {
+        "betTypeId": 34,
+        "betDescription": "Over 220.5 total points"
+      },
+      {
+        "betTypeId": 35,
+        "betDescription": "Over 230.5 total points"
+      },
+      {
+        "betTypeId": 59,
+        "betDescription": "Over 240.5 total points"
+      },
+      {
+        "betTypeId": 36,
+        "betDescription": "Under 210.5 total points"
+      },
+      {
+        "betTypeId": 60,
+        "betDescription": "Stephen Curry Over 25.5 points"
+      },
+      {
+        "betTypeId": 61,
+        "betDescription": "Stephen Curry Over 30.5 points"
+      },
+      {
+        "betTypeId": 62,
+        "betDescription": "Stephen Curry Over 5.5 3-pointers"
+      },
+      {
+        "betTypeId": 63,
+        "betDescription": "Devin Booker Over 25.5 points"
+      },
+      {
+        "betTypeId": 64,
+        "betDescription": "Devin Booker Over 30.5 points"
+      },
+      {
+        "betTypeId": 65,
+        "betDescription": "Kevin Durant Over 25.5 points"
+      },
+      {
+        "betTypeId": 66,
+        "betDescription": "Klay Thompson Over 20.5 points"
+      },
+      {
+        "betTypeId": 67,
+        "betDescription": "Draymond Green Over 8.5 assists"
+      },
+      {
+        "betTypeId": 68,
+        "betDescription": "Deandre Ayton Over 12.5 rebounds"
+      },
+      {
+        "betTypeId": 46,
+        "betDescription": "Warriors to win by 5+ points"
+      },
+      {
+        "betTypeId": 69,
+        "betDescription": "Suns to win by 5+ points"
+      },
+      {
+        "betTypeId": 48,
+        "betDescription": "Game to go to overtime"
+      },
+      {
+        "betTypeId": 70,
+        "betDescription": "Curry triple-double"
+      }
+    ]
+  },
+  {
+    "matchId": 301,
+    "matchDescription": "Manchester United vs. Arsenal (Premier League)",
+    "resolutionTimestamp": 1758948000,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "Manchester United to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Arsenal to win"
+      },
+      {
+        "betTypeId": 3,
+        "betDescription": "Draw"
+      },
+      {
+        "betTypeId": 4,
+        "betDescription": "Over 1.5 total goals"
+      },
+      {
+        "betTypeId": 5,
+        "betDescription": "Over 2.5 total goals"
+      },
+      {
+        "betTypeId": 6,
+        "betDescription": "Over 3.5 total goals"
+      },
+      {
+        "betTypeId": 8,
+        "betDescription": "Under 2.5 total goals"
+      },
+      {
+        "betTypeId": 9,
+        "betDescription": "Both teams to score"
+      },
+      {
+        "betTypeId": 71,
+        "betDescription": "Marcus Rashford to score anytime"
+      },
+      {
+        "betTypeId": 72,
+        "betDescription": "Bruno Fernandes to score anytime"
+      },
+      {
+        "betTypeId": 73,
+        "betDescription": "Bukayo Saka to score anytime"
+      },
+      {
+        "betTypeId": 74,
+        "betDescription": "Gabriel Jesus to score anytime"
+      },
+      {
+        "betTypeId": 75,
+        "betDescription": "Martin Ødegaard to score anytime"
+      },
+      {
+        "betTypeId": 76,
+        "betDescription": "Casemiro to score anytime"
+      },
+      {
+        "betTypeId": 19,
+        "betDescription": "Manchester United to score first"
+      },
+      {
+        "betTypeId": 20,
+        "betDescription": "Arsenal to score first"
+      },
+      {
+        "betTypeId": 23,
+        "betDescription": "Red card to be shown"
+      },
+      {
+        "betTypeId": 31,
+        "betDescription": "Over 8.5 total corners"
+      },
+      {
+        "betTypeId": 32,
+        "betDescription": "Over 4.5 total cards"
+      },
+      {
+        "betTypeId": 77,
+        "betDescription": "Penalty to be awarded"
+      },
+      {
+        "betTypeId": 78,
+        "betDescription": "Match to have 0-0 at halftime"
       }
     ]
   }

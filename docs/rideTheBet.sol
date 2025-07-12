@@ -18,7 +18,7 @@ contract PredictionDuel_v2 is Ownable, ReentrancyGuard {
 
     uint256 public minimumInfluencerStake;
     Bet[] public bets;
-    mapping(address => string) public influencerNames;
+    mapping(string => address) public influencerNames;
 
     // NEW: Struct to hold the verifiable identifiers for a bet.
     struct BetIdentifier {
@@ -69,7 +69,8 @@ contract PredictionDuel_v2 is Ownable, ReentrancyGuard {
 
     function registerInfluencer(string memory _name) external {
         require(bytes(_name).length > 0, "Name cannot be empty");
-        influencerNames[msg.sender] = _name;
+        require(influencerNames[_name] == address(0), "Name is already registered");
+        influencerNames[_name] = msg.sender;
         emit InfluencerRegistered(msg.sender, _name);
     }
 
