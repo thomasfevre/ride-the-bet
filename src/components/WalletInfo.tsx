@@ -79,7 +79,7 @@ export default function WalletInfo() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-dynamic-secondary">Status:</span>
-                <span className="text-sm text-warning-600 dark:text-warning-400 bg-warning-100 dark:bg-warning-900/30 px-3 py-1 rounded-xl">
+                <span className="text-sm text-dynamic-secondary bg-warning-100 dark:bg-warning-900/30 px-3 py-1 rounded-xl">
                   Not Registered
                 </span>
               </div>
