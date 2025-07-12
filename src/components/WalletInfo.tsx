@@ -88,7 +88,7 @@ const { data: registeredName, isLoading: isLoadingName, refetch: refetchName } =
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                <span className="text-dynamic-secondary">Verified Influencer - You can create prediction duels!</span>
+                <span className="text-dynamic-secondary">Verified Influencer - You can create prediction bets!</span>
               </div>
             </div>
           ) : (
@@ -103,7 +103,7 @@ const { data: registeredName, isLoading: isLoadingName, refetch: refetchName } =
                 </span>
               </div>
               <p className="text-xs text-dynamic-secondary">
-                Register to become a verified influencer and create prediction duels
+                Register to become a verified influencer and create prediction bets
               </p>
               
               {!showRegistration ? (
@@ -243,7 +243,7 @@ const { data: registeredName, isLoading: isLoadingName, refetch: refetchName } =
           <div className="flex items-center space-x-2">
             <span className="text-amber-500">💡</span>
             <p className="text-xs text-amber-800 dark:text-amber-200 font-medium">
-              You need PSG tokens to participate in duels. Ask the contract owner to mint some for you!
+              You need PSG tokens to participate in bets. Ask the contract owner to mint some for you!
             </p>
           </div>
         </div>

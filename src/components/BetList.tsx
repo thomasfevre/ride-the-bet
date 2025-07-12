@@ -34,13 +34,13 @@ export default function BetList() {
             <span className="text-white text-sm">🎯</span>
           </div>
           <h2 className="text-lg font-bold text-dynamic">
-            Active Prediction Duels
+            Active Prediction bets
           </h2>
         </div>
         <div className="text-center py-12">
           <div className="text-6xl mb-6 animate-float">🎯</div>
-          <h3 className="text-xl font-bold text-dynamic mb-2">No duels yet!</h3>
-          <p className="text-dynamic-secondary font-medium">Be the first to create a prediction duel and start earning!</p>
+          <h3 className="text-xl font-bold text-dynamic mb-2">No bets yet!</h3>
+          <p className="text-dynamic-secondary font-medium">Be the first to create a prediction bet and start earning!</p>
         </div>
       </div>
     );
@@ -53,7 +53,7 @@ export default function BetList() {
           <span className="text-white text-sm">🎯</span>
         </div>
         <h2 className="text-xl font-bold gradient-text">
-          Active Prediction Duels ({Number(betCount)})
+          Active Prediction bets ({Number(betCount)})
         </h2>
       </div>
       <div className="space-y-6">

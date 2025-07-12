@@ -2,12 +2,12 @@
 
 ## 📦 What We've Created
 
-Your "Prediction Duels" dApp is now complete with:
+Your "Prediction bets" dApp is now complete with:
 
 ### ✅ Core Features
 - **Smart Contract Integration**: Full connection to Chiliz Spicy Testnet
 - **Wallet Connection**: ThirdWeb ConnectButton with multi-wallet support
-- **Prediction Creation**: Form to create new prediction duels
+- **Prediction Creation**: Form to create new prediction bets
 - **Voting System**: Support/Doubt predictions with token staking
 - **Real-time Updates**: Live balance and bet status tracking
 - **Admin Panel**: Token minting and bet resolution tools
@@ -16,7 +16,7 @@ Your "Prediction Duels" dApp is now complete with:
 ### 🎨 UI Components Built
 
 1. **App.tsx** - Main application layout with header/footer
-2. **BetList.tsx** - Lists all prediction duels with loading states
+2. **BetList.tsx** - Lists all prediction bets with loading states
 3. **BetCard.tsx** - Individual bet display with voting interface
 4. **CreateBet.tsx** - Form for creating new predictions
 5. **WalletInfo.tsx** - User balance and connection status

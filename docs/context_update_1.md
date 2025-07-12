@@ -1,6 +1,6 @@
 # Context Update 1: Implementing a Secure Curation Layer
 
-This document outlines a critical architectural update to the `PredictionDuel` smart contract and dApp. The primary goal of this change is to enhance security and platform integrity by preventing users from creating subjective, ambiguous, or malicious bets.
+This document outlines a critical architectural update to the `Predictionbet` smart contract and dApp. The primary goal of this change is to enhance security and platform integrity by preventing users from creating subjective, ambiguous, or malicious bets.
 
 ### The Problem
 
@@ -19,9 +19,9 @@ We have shifted to a model where the platform operator curates all available bet
     -   A simple JSON file, managed by the platform admin, now serves as the single source of truth for all valid bets.
     -   It contains human-readable descriptions (`"PSG to win"`) and maps them to unique, structured IDs (`matchId: 101`, `betTypeId: 1`).
 
-2.  **Smart Contract Modifications (`PredictionDuel_v2.sol`)**
+2.  **Smart Contract Modifications (`Predictionbet_v2.sol`)**
     -   **Removed `description`:** The `Bet` struct no longer stores any descriptive strings, saving gas and removing the attack vector.
-    -   **Added `BetIdentifier`:** A new `struct` and `mapping` (`betIdentifiers`) have been added to store the `matchId` and `betTypeId` on-chain for each duel.
+    -   **Added `BetIdentifier`:** A new `struct` and `mapping` (`betIdentifiers`) have been added to store the `matchId` and `betTypeId` on-chain for each bet.
     -   **Updated `createBet` Function:** The function signature has changed. It now accepts the structured IDs instead of a string:
         ```solidity
         function createBet(

@@ -7,9 +7,14 @@ import WalletInfo from "./components/WalletInfo";
 import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
 import DarkModeToggle from "./components/DarkModeToggle";
+import { Modal } from "./components/ui/Modal";
+import { Button } from "./components/ui/Button";
 import { BetCatalogProvider } from "./hooks/useBetCatalog";
+import { useState } from "react";
 
 function App() {
+  const [isCreateBetModalOpen, setIsCreateBetModalOpen] = useState(false);
+
   return (
     <BetCatalogProvider>
       <div className="min-h-screen gradient-bg-dynamic transition-all duration-500">
@@ -27,7 +32,7 @@ function App() {
                       Ride The Bet
                     </h1>
                     <span className="text-xs text-dynamic-muted">
-                      Prediction Duels
+                      Prediction bets
                     </span>
                   </div>
                 </div>
@@ -70,7 +75,30 @@ function App() {
             <div className="lg:col-span-1 space-y-6">
               <WalletInfo />
               <AdminPanel />
-              <CreateBet />
+              
+              {/* Create Bet Button */}
+              <div className="card-dynamic border-dynamic shadow-dynamic p-6">
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+                    <span className="text-2xl">🎯</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                      Create Prediction Bet
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      Start a new prediction challenge for the community
+                    </p>
+                  </div>
+                  <Button
+                    variant="primary"
+                    onClick={() => setIsCreateBetModalOpen(true)}
+                    className="w-full"
+                  >
+                    Create New Bet
+                  </Button>
+                </div>
+              </div>
             </div>
             
             {/* Bet List Section */}
@@ -100,6 +128,16 @@ function App() {
             },
           }}
         />
+
+        {/* Create Bet Modal */}
+        <Modal
+          isOpen={isCreateBetModalOpen}
+          onClose={() => setIsCreateBetModalOpen(false)}
+          title="Create Prediction Bet"
+          size="xl"
+        >
+          <CreateBet />
+        </Modal>
       </div>
     </BetCatalogProvider>
   );

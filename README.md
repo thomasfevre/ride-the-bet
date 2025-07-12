@@ -1,10 +1,10 @@
-# 🏆 Ride The Bet - Prediction Duels dApp
+# 🏆 Ride The Bet - Prediction bets dApp
 
-A decentralized prediction market built on Chiliz Spicy Testnet where users can create prediction duels, stake tokens on outcomes, and earn from correct predictions.
+A decentralized prediction market built on Chiliz Spicy Testnet where users can create prediction bets, stake tokens on outcomes, and earn from correct predictions.
 
 ## 🎯 Features
 
-- **Create Prediction Duels**: Make predictions and stake PSG tokens
+- **Create Prediction bets**: Make predictions and stake PSG tokens
 - **Vote on Predictions**: Support or doubt predictions by staking tokens
 - **Earn Rewards**: Winners share the losing side's stake proportionally
 - **Admin Resolution**: Contract admins resolve predictions after deadlines
@@ -98,7 +98,7 @@ Visit `http://localhost:5173` to see your dApp!
 
 1. **Connect Wallet**: Click "Connect Wallet" and connect to Chiliz Spicy Testnet
 2. **Get PSG Tokens**: Ask the contract owner to mint tokens for you
-3. **Create Predictions**: Use the "Create Prediction Duel" form
+3. **Create Predictions**: Use the "Create Prediction bet" form
 4. **Vote on Predictions**: Support or doubt predictions by staking tokens
 5. **Claim Winnings**: After resolution, claim your share if you voted correctly
 
@@ -106,7 +106,7 @@ Visit `http://localhost:5173` to see your dApp!
 
 1. **Mint Tokens**: Use the Admin Panel to mint PSG tokens for users
 2. **Resolve Bets**: After deadline, resolve predictions as correct or incorrect
-3. **Monitor Activity**: Track all prediction duels and user activity
+3. **Monitor Activity**: Track all prediction bets and user activity
 
 ## 📱 User Interface
 
@@ -115,8 +115,8 @@ Visit `http://localhost:5173` to see your dApp!
 - **Header**: Wallet connection and branding
 - **Wallet Info**: Current address and token balances
 - **Admin Panel**: Token minting and admin functions (admin only)
-- **Create Bet**: Form to create new prediction duels
-- **Bet List**: All active and resolved prediction duels
+- **Create Bet**: Form to create new prediction bets
+- **Bet List**: All active and resolved prediction bets
 - **Bet Cards**: Individual prediction details and voting interface
 
 ### Key Features
@@ -132,7 +132,7 @@ Visit `http://localhost:5173` to see your dApp!
 ### MockPSG.sol
 - ERC20 token contract
 - Mintable by owner
-- Used for staking in prediction duels
+- Used for staking in prediction bets
 
 ### rideTheBet.sol
 - Main prediction market contract
@@ -192,7 +192,7 @@ src/
 3. Start the development server
 4. Connect MetaMask to Chiliz Spicy Testnet
 5. Mint PSG tokens for testing addresses
-6. Create a prediction duel
+6. Create a prediction bet
 7. Vote on the prediction with different accounts
 8. Wait for deadline or manually advance time
 9. Resolve the prediction as admin

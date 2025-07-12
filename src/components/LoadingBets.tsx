@@ -4,7 +4,7 @@ export default function LoadingBets() {
   return (
     <div className="gradient-bg-dynamic  rounded-lg shadow p-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">
-        Active Prediction Duels
+        Active Prediction bets
       </h2>
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (
@@ -36,7 +36,7 @@ export default function LoadingBets() {
       </div>
       <div className="flex items-center justify-center mt-6">
         <LoadingSpinner size="md" />
-        <span className="ml-2 text-sm text-gray-500">Loading prediction duels...</span>
+        <span className="ml-2 text-sm text-gray-500">Loading prediction bets...</span>
       </div>
     </div>
   );

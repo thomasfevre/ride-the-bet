@@ -63,7 +63,7 @@ npm run dev
 
 1. Connect wallet to Chiliz Spicy Testnet
 2. Mint PSG tokens using Admin Panel
-3. Create a prediction duel
+3. Create a prediction bet
 4. Vote on predictions
 5. Resolve bets after deadline
 6. Claim winnings
@@ -87,4 +87,4 @@ export const MOCK_PSG_ADDRESS = "0x...";   // ← Your MockPSG contract
 
 ---
 
-🎪 **Ready to demo!** Your Prediction Duels dApp should be fully functional.
+🎪 **Ready to demo!** Your Prediction bets dApp should be fully functional.

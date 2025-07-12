@@ -1,4 +1,4 @@
-# "Ride The Bet" Prediction Duel dApp: Development Plan
+# "Ride The Bet" Prediction bet dApp: Development Plan
 
 This document outlines the step-by-step plan to build, test, and deploy the "Ride The Bet" decentralized application for the Chiliz Hackathon.
 
@@ -85,7 +85,7 @@ This document outlines the step-by-step plan to build, test, and deploy the "Rid
     // src/constants/contracts.ts
     export const RIDETHEBET_ADDRESS = "0xYourrideTheBetAddress";
     export const MOCK_PSG_ADDRESS = "0xYourMockPSGAddress";
-    export const RIDETHEBET_DUEL_ABI = [/* Paste ABI here */];
+    export const RIDETHEBET_bet_ABI = [/* Paste ABI here */];
     ```
 
 ---
@@ -164,7 +164,7 @@ This document outlines the step-by-step plan to build, test, and deploy the "Rid
 
 1.  **`BetCard` Component:**
     - Create a component `src/components/BetCard.tsx`.
-    - This component will display the details of a single prediction duel: description, pools, and buttons to vote.
+    - This component will display the details of a single prediction bet: description, pools, and buttons to vote.
     - It will take a `bet` object as a prop.
 
 2.  **`BetList` Component (Reading Data):**

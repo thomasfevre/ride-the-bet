@@ -6,13 +6,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title PredictionDuel_v2
+ * @title Predictionbet_v2
  * @author [Your Name/Team Name]
  * @notice A curated prediction market. Bets are created using pre-defined IDs from an
  * off-chain catalog, preventing subjective or malicious bet creation. Users upvote or
  * downvote these curated bets, and the winning side shares the losing side's stake.
  */
-contract PredictionDuel_v2 is Ownable, ReentrancyGuard {
+contract Predictionbet_v2 is Ownable, ReentrancyGuard {
 
     // --- State Variables ---
 
@@ -82,7 +82,7 @@ contract PredictionDuel_v2 is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @notice Creates a new prediction duel using structured IDs from the off-chain catalog.
+     * @notice Creates a new prediction bet using structured IDs from the off-chain catalog.
      * @param _matchId The ID for the match (e.g., 101 for PSG vs Man City).
      * @param _betTypeId The ID for the specific prediction type (e.g., 1 for "PSG to win").
      * @param _tokenAddress The contract address of the Fan Token being staked.

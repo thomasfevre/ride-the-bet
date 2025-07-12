@@ -1,8 +1,8 @@
-# ✅ Build Complete - Prediction Duel dApp
+# ✅ Build Complete - Prediction bet dApp
 
 ## 🎉 Success!
 
-Your Prediction Duel dApp has been successfully built and is ready for deployment!
+Your Prediction bet dApp has been successfully built and is ready for deployment!
 
 ## 📁 Build Output
 
