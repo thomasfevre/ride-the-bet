@@ -4,6 +4,7 @@ import { client, spicyTestnet } from "../lib/thirdweb";
 import { RIDETHEBET_ADDRESS, RIDETHEBET_ABI } from "../constants/contracts";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useBetCatalog } from "../hooks/useBetCatalog";
 
 interface BetCardProps {
   betId: number;
@@ -19,10 +20,17 @@ const ridethebetContract = getContract({
 export default function BetCard({ betId }: BetCardProps) {
   const [voteAmount, setVoteAmount] = useState("1");
   const account = useActiveAccount();
+  const { getBetDescription } = useBetCatalog();
 
   const { data: bet, isLoading } = useReadContract({
     contract: ridethebetContract,
     method: "bets",
+    params: [BigInt(betId)]
+  });
+
+  const { data: betIdentifiers } = useReadContract({
+    contract: ridethebetContract,
+    method: "betIdentifiers", 
     params: [BigInt(betId)]
   });
 
@@ -48,9 +56,13 @@ export default function BetCard({ betId }: BetCardProps) {
     return <div className="animate-pulse h-32 bg-card-dynamic rounded-3xl"></div>;
   }
 
-  if (!bet) return null;
+  if (!bet || !betIdentifiers) return null;
 
-  const [influencer, description, , upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
+  const [influencer, , , upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
+  const [matchId, betTypeId] = betIdentifiers;
+
+  // Get human-readable description from bet catalog
+  const description = getBetDescription(Number(matchId), Number(betTypeId));
 
   const resolutionDate = new Date(Number(resolutionTimestamp) * 1000);
   const isExpired = Date.now() > resolutionDate.getTime();

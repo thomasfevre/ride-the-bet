@@ -1,0 +1,67 @@
+[
+  {
+    "matchId": 101,
+    "matchDescription": "PSG vs. Manchester City (Champions League)",
+    "resolutionTimestamp": 1758516000,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "PSG to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Manchester City to win"
+      },
+      {
+        "betTypeId": 3,
+        "betDescription": "Kylian Mbappé to score anytime"
+      },
+      {
+        "betTypeId": 4,
+        "betDescription": "Over 2.5 total goals"
+      }
+    ]
+  },
+  {
+    "matchId": 102,
+    "matchDescription": "AC Milan vs. Juventus (Serie A)",
+    "resolutionTimestamp": 1758775200,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "AC Milan to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Juventus to win"
+      },
+      {
+        "betTypeId": 5,
+        "betDescription": "AC Milan to keep a clean sheet"
+      },
+      {
+        "betTypeId": 6,
+        "betDescription": "Both teams to score"
+      }
+    ]
+  },
+  {
+    "matchId": 201,
+    "matchDescription": "LA Lakers vs. Boston Celtics (NBA)",
+    "resolutionTimestamp": 1759123200,
+    "allowedBetTypes": [
+      {
+        "betTypeId": 1,
+        "betDescription": "LA Lakers to win"
+      },
+      {
+        "betTypeId": 2,
+        "betDescription": "Boston Celtics to win"
+      },
+      {
+        "betTypeId": 7,
+        "betDescription": "LeBron James to score Over 25.5 points"
+      }
+    ]
+  }
+]

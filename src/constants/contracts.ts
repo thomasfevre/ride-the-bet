@@ -108,9 +108,14 @@ export const RIDETHEBET_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_matchId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_betTypeId",
+				"type": "uint8"
 			},
 			{
 				"internalType": "address",
@@ -506,6 +511,30 @@ export const RIDETHEBET_ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "betIdentifiers",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "matchId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "betTypeId",
+				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",
