@@ -283,7 +283,7 @@ export default function CreateBet() {
                       <div
                         key={betType.betTypeId}
                         onClick={() => setSelectedBetTypeId(betType.betTypeId)}
-                        className={`relative group cursor-pointer transform transition-all duration-300 hover:scale-105 ${
+                        className={`relative group cursor-pointer transform transition-all duration-300 hover:scale-105  border-b-blue-300 border-2 rounded-2xl ${
                           selectedBetTypeId === betType.betTypeId
                             ? 'card-dynamic border-dynamic shadow-xl scale-105'
                             : 'card-dynamic border-dynamic hover:shadow-lg'
@@ -298,7 +298,7 @@ export default function CreateBet() {
                             </div>
                           )}
                           <div className="pr-8">
-                            <p className="text-base font-semibold text-gray-900 dark:text-white leading-relaxed">
+                            <p className="text-base font-semibold text-gray-900 dark:text-white leading-relaxed ">
                               {betType.betDescription}
                             </p>
                           </div>
@@ -337,8 +337,8 @@ export default function CreateBet() {
             <div className="relative">
               <input
                 type="number"
-                min="0.1"
-                step="0.1"
+                min="100"
+                step="1"
                 value={stakeAmount}
                 onChange={(e) => setStakeAmount(e.target.value)}
                 className="w-full px-6 py-4 pr-16 rounded-xl card-dynamic border-dynamic text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-300 text-lg font-medium placeholder-gray-400"

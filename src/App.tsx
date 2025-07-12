@@ -25,7 +25,7 @@ function App() {
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-2xl flex items-center justify-center animate-float shadow-lg">
-                    <span className="text-xl">🏆</span>
+                    <span className="text-4xl">⚡️</span>
                   </div>
                   <div>
                     <h1 className="text-xl font-bold gradient-text">
@@ -37,15 +37,15 @@ function App() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <DarkModeToggle />
-                <ConnectButton 
-                  client={client} 
+                <ConnectButton
+                  client={client}
                   chains={[spicyTestnet]}
                   theme="dark"
                   connectButton={{
-                    className: "!bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 shadow-lg hover:shadow-xl dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200 rounded-lg" 
+                    className: "!bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 shadow-lg hover:shadow-xl dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200 rounded-lg"
                   }}
                 />
               </div>
@@ -59,10 +59,10 @@ function App() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
               <h2 className="text-4xl font-bold gradient-text mb-4 animate-slide-in">
-                Welcome to the Future of Predictions
+                Bet Big, Win Bigger: Decentralized Predictions Unleashed
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-slide-in">
-                Create, vote, and win with decentralized prediction markets on Chiliz Spicy Testnet
+                Join the ultimate blockchain betting arena—predict, stake, and cash in with the power of DeFi.
               </p>
             </div>
           </div>
@@ -75,9 +75,9 @@ function App() {
             <div className="lg:col-span-1 space-y-6">
               <WalletInfo />
               <AdminPanel />
-              
+
               {/* Create Bet Button */}
-              <div className="card-dynamic border-dynamic shadow-dynamic p-6">
+              <div className="bg-card-dynamic border border-dynamic rounded-3xl shadow-dynamic hover:shadow-hover-dynamic p-6 transition-all duration-300 hover:scale-[1.02] animate-slide-in">
                 <div className="text-center space-y-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
                     <span className="text-2xl">🎯</span>
@@ -93,14 +93,14 @@ function App() {
                   <Button
                     variant="primary"
                     onClick={() => setIsCreateBetModalOpen(true)}
-                    className="w-full"
+                    className="w-fit"
                   >
                     Create New Bet
                   </Button>
                 </div>
               </div>
             </div>
-            
+
             {/* Bet List Section */}
             <div className="lg:col-span-2">
               <BetList />
@@ -109,7 +109,7 @@ function App() {
         </main>
 
         <Footer />
-        <Toaster 
+        <Toaster
           position="bottom-right"
           toastOptions={{
             className: "!bg-white !dark:bg-gray-800 !text-gray-900 !dark:text-white !border !border-gray-200 !dark:border-gray-700 !rounded-lg !shadow-hover",

@@ -92,7 +92,7 @@ export default function BetCard({ betId }: BetCardProps) {
   const getStatusText = () => {
     if (isResolved) return influencerWasRight ? "✅ Correct" : "❌ Wrong";
     if (isExpired) return "⏰ Expired";
-    return "🔴 Active";
+    return "🟢 Active";
   };
 
   return (
@@ -108,7 +108,7 @@ export default function BetCard({ betId }: BetCardProps) {
           </div>
           <p className="text-sm font-medium text-dynamic">{description}</p>
           <p className="text-xs text-dynamic-muted mt-1">
-            by {influencer.slice(0, 6)}...{influencer.slice(-4)}
+            by {influencer.toLowerCase() === account?.address?.toLowerCase() ? "You" : `${influencer.slice(0, 6)}...${influencer.slice(-4)}`}
           </p>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function BetCard({ betId }: BetCardProps) {
       </div>
 
       {/* User's Stake Info */}
-      {userVoted && (
+      {typeof userVoted === 'number' && Number(userVoted) > 0 &&(
         <div className="mb-4 p-3 bg-card-dynamic border border-dynamic rounded-2xl text-xs">
           <span className="font-medium text-dynamic">Your stake: </span>
           <span className="text-dynamic-secondary">
