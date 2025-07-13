@@ -130,7 +130,7 @@ export default function BetCard({ betId }: BetCardProps) {
           </p>
               </div>
               <p className="text-bold text-dynamic-muted">
-          Resolves: {resolutionDate.toLocaleDateString()} {resolutionDate.toLocaleTimeString()}
+          End Date: {resolutionDate.toLocaleDateString()} {resolutionDate.toLocaleTimeString()}
         </p>
       </div>
 
@@ -139,8 +139,8 @@ export default function BetCard({ betId }: BetCardProps) {
         {/* Influencer's Initial Stake */}
         <div className="mb-8 bg-gradient-to-r from-primary-500/10 to-secondary-500/10  rounded-2xl">
           <div className="flex items-center justify-center mb-1">
-            <span className="text-xs font-medium text-dynamic mx-2">
-              💰Initial stake put down by the influencer :
+            <span className="font-medium text-dynamic mx-2">
+              💰Initial Influencer Stake :
             </span>
             <span className="text-xs font-bold text-dynamic">
               {(Number(influencerStake) / 10**18).toFixed(2)} PSG

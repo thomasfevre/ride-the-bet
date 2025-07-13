@@ -20,7 +20,9 @@ export default function BetList() {
   });
 
   // Create an array of bet IDs to fetch individual bet data
-  const betIds = betCount ? Array.from({ length: Number(betCount) }, (_, i) => i) : [];
+const betIds = betCount
+    ? Array.from({ length: Number(betCount) }, (_, i) => Number(betCount) - 1 - i)
+    : [];
 
   if (isLoadingCount) {
     return <LoadingBets />;

@@ -59,7 +59,7 @@ function App() {
                   chains={[spicyTestnet]}
                   theme="dark"
                   connectButton={{
-                    className: "!bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 shadow-lg hover:shadow-xl dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200 rounded-lg"
+                    className: "!bg-gradient-to-r from-gray-800 to-gray-900 text-white hover:from-gray-700 hover:to-gray-800 shadow-lg hover:shadow-xl dark:from-white dark:to-gray-100 dark:text-gray-900 dark:hover:from-gray-100 dark:hover:to-gray-200 rounded-lg !p-1.5 !m-0 !h-10"
                   }}
                 />
               </div>
@@ -72,7 +72,7 @@ function App() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-secondary-500/10 to-accent-500/10 dark:from-primary-400/20 dark:via-secondary-400/20 dark:to-accent-400/20"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h2 className="text-4xl font-bold gradient-text mb-4 animate-slide-in h-8">
+              <h2 className="text-4xl font-bold gradient-text mb-4 animate-slide-in h-32 lg:h-16">
                 Bet Big, Win Bigger: Decentralized Predictions Unleashed
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-slide-in">
