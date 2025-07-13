@@ -59,6 +59,13 @@ export default function BetCard({ betId }: BetCardProps) {
     params: [BigInt(betId), account?.address || "0x0"]
   });
 
+  // Get influencer name using the influencer address from bet data
+  const { data: influencerName } = useReadContract({
+    contract: ridethebetContract,
+    method: "influencerNames",
+    params: [bet?.[0] || "0x0"] // bet[0] is the influencer address
+  });
+
   if (isLoading) {
     return <div className="animate-pulse h-32 bg-card-dynamic rounded-3xl"></div>;
   }
@@ -114,39 +121,39 @@ export default function BetCard({ betId }: BetCardProps) {
           <p className="text-sm font-medium text-dynamic">{description}</p>
           <p className="text-xs text-dynamic-muted mt-1">
             by {influencer.toLowerCase() === account?.address?.toLowerCase() ? 
-              `You (${(Number(influencerStake) / 10**18).toFixed(2)} PSG stake)` : 
-              `${influencer.slice(0, 6)}...${influencer.slice(-4)} (${(Number(influencerStake) / 10**18).toFixed(2)} PSG stake)`
+              'You' : 
+              (influencerName && influencerName.trim() !== '' ? 
+                influencerName : 
+                `${influencer.slice(0, 6)}...${influencer.slice(-4)}`
+              )
             }
           </p>
-        </div>
+              </div>
+              <p className="text-bold text-dynamic-muted">
+          Resolves: {resolutionDate.toLocaleDateString()} {resolutionDate.toLocaleTimeString()}
+        </p>
       </div>
 
       {/* Pool Information */}
       <div className="mb-4">
         {/* Influencer's Initial Stake */}
-        <div className="mb-3 p-3 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border border-primary-500/20 rounded-2xl">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-primary-600 dark:text-primary-400">
-              🎯 Influencer's Prediction Stake
+        <div className="mb-8 bg-gradient-to-r from-primary-500/10 to-secondary-500/10  rounded-2xl">
+          <div className="flex items-center justify-center mb-1">
+            <span className="text-xs font-medium text-dynamic mx-2">
+              💰Initial stake put down by the influencer :
             </span>
-            <span className="text-xs font-bold text-primary-700 dark:text-primary-300">
+            <span className="text-xs font-bold text-dynamic">
               {(Number(influencerStake) / 10**18).toFixed(2)} PSG
             </span>
           </div>
-          <p className="text-xs text-dynamic-muted">Initial stake put down by the influencer</p>
+          
         </div>
 
         {/* Community Voting Pools */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs text-dynamic-secondary mb-2">
-            <span>💪 Total Supporters ({(Number(upvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
-            <span>🚫 Total Doubters ({(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
-          </div>
-          
-          {/* Additional supporters breakdown */}
-          <div className="flex justify-between text-xs text-dynamic-muted mb-2">
-            <span>└ Additional support: {((Number(upvotePoolTotal) - Number(influencerStake)) / 10**18).toFixed(2)} PSG</span>
-            <span>└ Community doubts: {(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG</span>
+            <span>💪 Total Supporters <strong>({((Number(upvotePoolTotal) - Number(influencerStake)) / 10**18).toFixed(2)} PSG)</strong></span>
+            <span>🚫 Total Doubters <strong>({(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG)</strong></span>
           </div>
         </div>
 
@@ -156,9 +163,7 @@ export default function BetCard({ betId }: BetCardProps) {
             style={{ width: `${upvotePercentage}%` }}
           ></div>
         </div>
-        <p className="text-xs text-dynamic-muted">
-          Resolves: {resolutionDate.toLocaleDateString()} {resolutionDate.toLocaleTimeString()}
-        </p>
+        
       </div>
 
       {/* User's Stake Info */}
@@ -193,8 +198,8 @@ export default function BetCard({ betId }: BetCardProps) {
 
           {/* Show approval button when approval is needed */}
           {needsApproval && (
-            <div className="space-y-2">
-              <div className="text-xs text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="space-y-2 mt-10 flex flex-col items-center justify-center">
+              <div className="text-xs text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg border border-blue-200 dark:border-blue-800 mb-6">
                 💡 First approve PSG tokens, then you can vote on this prediction
               </div>
               <ApprovalButton
@@ -212,7 +217,7 @@ export default function BetCard({ betId }: BetCardProps) {
 
           {/* Show voting buttons only when approval is done */}
           {!needsApproval && (
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 mt-4">
               <TransactionButton
                 transaction={() => {
                   const amount = toWei(voteAmount);
