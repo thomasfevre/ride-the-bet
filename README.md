@@ -4,11 +4,15 @@ A decentralized prediction market built on Chiliz Spicy Testnet where users can 
 
 ## 🎯 Features
 
-- **Create Prediction bets**: Make predictions and stake PSG tokens
+- **Create Prediction Bets**: Make predictions and stake PSG tokens
 - **Vote on Predictions**: Support or doubt predictions by staking tokens
+- **Token Approval System**: Secure ERC20 token approval before transactions
+- **Influencer Registration**: Register unique pseudonyms for brand identity
+- **Leaderboard System**: Track top performers with detailed statistics
 - **Earn Rewards**: Winners share the losing side's stake proportionally
 - **Admin Resolution**: Contract admins resolve predictions after deadlines
 - **Real-time Updates**: Live tracking of pools and voting activity
+- **Dark Mode Support**: Toggle between light and dark themes
 
 ## 🛠 Tech Stack
 
@@ -98,9 +102,12 @@ Visit `http://localhost:5173` to see your dApp!
 
 1. **Connect Wallet**: Click "Connect Wallet" and connect to Chiliz Spicy Testnet
 2. **Get PSG Tokens**: Ask the contract owner to mint tokens for you
-3. **Create Predictions**: Use the "Create Prediction bet" form
-4. **Vote on Predictions**: Support or doubt predictions by staking tokens
-5. **Claim Winnings**: After resolution, claim your share if you voted correctly
+3. **Register as Influencer**: (Optional) Register a unique pseudonym for your predictions
+4. **Create Predictions**: Use the "Create Bet" button in the header
+5. **Approve Tokens**: First approve PSG tokens before creating bets or voting
+6. **Vote on Predictions**: Support or doubt predictions by staking tokens
+7. **View Leaderboard**: Check top performers via the "🏆 Leaderboard" button
+8. **Claim Winnings**: After resolution, claim your share if you voted correctly
 
 ### For Admins
 
@@ -112,20 +119,26 @@ Visit `http://localhost:5173` to see your dApp!
 
 ### Main Components
 
-- **Header**: Wallet connection and branding
+- **Header**: Wallet connection, Create Bet, and Leaderboard buttons
 - **Wallet Info**: Current address and token balances
 - **Admin Panel**: Token minting and admin functions (admin only)
-- **Create Bet**: Form to create new prediction bets
+- **Create Bet Modal**: Form to create new prediction bets with token approval
 - **Bet List**: All active and resolved prediction bets
-- **Bet Cards**: Individual prediction details and voting interface
+- **Bet Cards**: Individual prediction details with approval workflow and voting interface
+- **Leaderboard Modal**: Influencer rankings and performance statistics
+- **Dark Mode Toggle**: Theme switching functionality
 
 ### Key Features
 
 - **Real-time Balance Updates**: Live PSG and CHZ balance display
-- **Progress Bars**: Visual representation of voting pools
+- **Token Approval Workflow**: Secure two-step process for all transactions
+- **Influencer Identity System**: Pseudonym registration and display
+- **Progress Bars**: Visual representation of voting pools with influencer stake separation
 - **Status Indicators**: Active, expired, and resolved bet status
 - **Transaction Buttons**: One-click ThirdWeb transaction handling
 - **Responsive Design**: Works on desktop and mobile devices
+- **Modal System**: Clean overlay interfaces for key actions
+- **Leaderboard Gamification**: Performance tracking and competitive rankings
 
 ## 🏗 Smart Contract Architecture
 
@@ -138,6 +151,9 @@ Visit `http://localhost:5173` to see your dApp!
 - Main prediction market contract
 - Handles bet creation, voting, and resolution
 - Manages stake pools and winner calculations
+- Supports influencer registration with pseudonyms
+- Separates influencer stakes from community voting pools
+- Implements secure token approval patterns
 
 ## 🔧 Development
 
@@ -146,16 +162,21 @@ Visit `http://localhost:5173` to see your dApp!
 ```
 src/
 ├── components/          # React components
-│   ├── ui/             # Reusable UI components
-│   ├── BetList.tsx     # List of all bets
-│   ├── BetCard.tsx     # Individual bet display
-│   ├── CreateBet.tsx   # Bet creation form
-│   ├── WalletInfo.tsx  # User wallet information
-│   ├── AdminPanel.tsx  # Admin functions
+│   ├── ui/             # Reusable UI components (Button, Modal, LoadingSpinner)
+│   ├── BetList.tsx     # List of all bets with loading states
+│   ├── BetCard.tsx     # Individual bet display with approval workflow
+│   ├── CreateBet.tsx   # Bet creation form with token approval
+│   ├── Leaderboard.tsx # Influencer rankings and statistics
+│   ├── WalletInfo.tsx  # User wallet information and balances
+│   ├── AdminPanel.tsx  # Admin functions and token minting
+│   ├── DarkModeToggle.tsx # Theme switching component
 │   └── Footer.tsx      # App footer
+├── hooks/              # Custom React hooks
+│   ├── useBetCatalog.tsx  # Bet data management
+│   └── useTokenApproval.tsx # ERC20 token approval logic
 ├── constants/          # Contract addresses and ABIs
 ├── lib/               # ThirdWeb configuration
-└── App.tsx           # Main application component
+└── App.tsx           # Main application component with modal management
 ```
 
 ### Available Scripts
@@ -178,12 +199,21 @@ src/
    - Ask admin to mint PSG tokens
 
 3. **"Transaction failed"**
-   - Check token approvals
+   - Check token approvals first - all transactions require PSG token approval
    - Ensure sufficient gas (CHZ) balance
+   - Verify you're not trying to vote twice on the same prediction
 
-4. **Contract not found**
+4. **"Approval required" message**
+   - This is normal - first approve PSG tokens, then perform the action
+   - Each new amount requires separate approval for security
+
+5. **Contract not found**
    - Verify contract addresses in `constants/contracts.ts`
    - Ensure contracts are deployed on correct network
+
+6. **"Name already taken" when registering**
+   - Try a different pseudonym for your influencer identity
+   - Names must be unique across the platform
 
 ## 🎪 Demo Flow
 
@@ -192,11 +222,24 @@ src/
 3. Start the development server
 4. Connect MetaMask to Chiliz Spicy Testnet
 5. Mint PSG tokens for testing addresses
-6. Create a prediction bet
-7. Vote on the prediction with different accounts
-8. Wait for deadline or manually advance time
-9. Resolve the prediction as admin
-10. Claim winnings as the winning voters
+6. **Register as influencer** with a unique pseudonym (optional)
+7. **Create a prediction bet** (requires PSG token approval first)
+8. **Vote on predictions** with different accounts (each requires approval)
+9. **Check leaderboard** to see influencer rankings
+10. Wait for deadline or manually advance time
+11. **Resolve the prediction** as admin
+12. **Claim winnings** as the winning voters
+
+## 🆕 Latest Updates
+
+### v2.0 Features Added:
+- **🔐 Token Approval System**: Secure ERC20 approval workflow before all transactions
+- **👤 Influencer Registration**: Users can register unique pseudonyms for branding
+- **🏆 Leaderboard**: Complete gamification system with influencer rankings and statistics
+- **💰 Stake Separation**: Clear distinction between influencer initial stakes and community support
+- **🎨 Enhanced UI**: Improved bet cards with better visual hierarchy and information display
+- **🌙 Dark Mode**: Complete dark/light theme support throughout the application
+- **📱 Modal System**: Clean overlay interfaces for bet creation and leaderboard viewing
 
 ## 📄 License
 
@@ -206,8 +249,11 @@ This project is built for the Chiliz Hackathon and is for educational/demonstrat
 
 - This is a TESTNET application with no real monetary value
 - PSG tokens are mock tokens for demonstration only
+- **All transactions require token approval first** for security
+- Influencer pseudonyms must be unique platform-wide
 - Always verify contract addresses before interacting
 - Keep your private keys secure and never share them
+- The leaderboard shows mock data for demonstration purposes
 
 ## 🤝 Contributing
 
