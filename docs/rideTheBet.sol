@@ -6,89 +6,91 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title Predictionbet_v2
- * @author [Your Name/Team Name]
- * @notice A curated prediction market. Bets are created using pre-defined IDs from an
- * off-chain catalog, preventing subjective or malicious bet creation. Users upvote or
- * downvote these curated bets, and the winning side shares the losing side's stake.
+ * @title rideTheBet
+ * @notice This version fixes a critical issue with using strings as public mapping keys,
+ * ensuring compatibility with real EVM networks like Chiliz Spicy Testnet.
+ * It uses keccak256 hashes for name registration.
  */
-contract Predictionbet_v2 is Ownable, ReentrancyGuard {
+contract rideTheBet is Ownable, ReentrancyGuard {
 
     // --- State Variables ---
-
     uint256 public minimumInfluencerStake;
     Bet[] public bets;
-    mapping(string => address) public influencerNames;
-    mapping(address => string) public addressToinfluencerNames;
 
-    // NEW: Struct to hold the verifiable identifiers for a bet.
+    // CORRECTED MAPPINGS
+    // This mapping stores the HASH of the name to the influencer's address.
+    // It is NOT public to avoid the getter issue. We will write our own getter.
+    mapping(bytes32 => address) private _registeredNameHashes;
+
+    // This mapping stores the address to the name for easy reverse lookup.
+    mapping(address => string) public influencerNames;
+
+    // ... (rest of your structs and mappings are fine)
     struct BetIdentifier {
         uint256 matchId;
         uint8 betTypeId;
     }
-
-    // NEW: Mapping from our internal betId to the verifiable identifiers.
-    mapping(uint256 => BetIdentifier) public betIdentifiers;
-
-    mapping(uint256 => mapping(address => uint256)) public upvoterStakes;
-    mapping(uint256 => mapping(address => uint256)) public downvoterStakes;
-    mapping(uint256 => mapping(address => bool)) public hasClaimed;
-
-
-    // --- Structs ---
-
     struct Bet {
         address influencer;
-        // REMOVED: string description;
         address tokenAddress;
+        uint256 influencerStake;
         uint256 upvotePoolTotal;
         uint256 downvotePoolTotal;
         uint256 resolutionTimestamp;
         bool isResolved;
         bool influencerWasRight;
     }
-
+    mapping(uint256 => BetIdentifier) public betIdentifiers;
+    mapping(uint256 => mapping(address => uint256)) public upvoterStakes;
+    mapping(uint256 => mapping(address => uint256)) public downvoterStakes;
+    mapping(uint256 => mapping(address => bool)) public hasClaimed;
 
     // --- Events ---
-
     event InfluencerRegistered(address indexed influencer, string name);
-    // UPDATED: Event now emits structured IDs instead of a description string.
+    // ... (rest of your events are fine)
     event BetCreated(uint256 indexed betId, address indexed influencer, uint256 matchId, uint8 betTypeId, uint256 resolutionTimestamp);
     event Voted(uint256 indexed betId, address indexed user, uint256 amount, bool isUpvote);
     event BetResolved(uint256 indexed betId, bool influencerWasRight);
     event WinningsClaimed(uint256 indexed betId, address indexed user, uint256 totalPayout);
 
 
-    // --- Constructor ---
-
     constructor(uint256 _initialMinimumStake, address initialOwner) Ownable(initialOwner) {
         minimumInfluencerStake = _initialMinimumStake;
     }
 
-
     // --- Public & External Functions ---
 
+    /**
+     * @notice Registers a unique influencer name.
+     * @dev This function now uses a keccak256 hash of the name to prevent EVM errors
+     * and ensure gas-efficient lookups.
+     */
     function registerInfluencer(string memory _name) external {
         require(bytes(_name).length > 0, "Name cannot be empty");
-        require(influencerNames[_name] == address(0), "Name is already registered");
-        influencerNames[_name] = msg.sender;
-        addressToinfluencerNames[msg.sender] = _name;
+
+        bytes32 nameHash = keccak256(abi.encodePacked(_name));
+
+        require(_registeredNameHashes[nameHash] == address(0), "Name is already taken");
+        require(bytes(influencerNames[msg.sender]).length == 0, "Address has already registered a name");
+
+        _registeredNameHashes[nameHash] = msg.sender;
+        influencerNames[msg.sender] = _name;
+
         emit InfluencerRegistered(msg.sender, _name);
     }
 
-    function getInfluencerPseudoByAddress(address _address) external view returns (string memory name) {
-        require(_address != address(0), "No address provided");
-        return addressToinfluencerNames[_address];
+    /**
+     * @notice A public getter to check which address has registered a name.
+     * @return The address of the owner, or the zero address if not registered.
+     */
+    function getAddressForName(string memory _name) public view returns (address) {
+        bytes32 nameHash = keccak256(abi.encodePacked(_name));
+        return _registeredNameHashes[nameHash];
     }
 
-    /**
-     * @notice Creates a new prediction bet using structured IDs from the off-chain catalog.
-     * @param _matchId The ID for the match (e.g., 101 for PSG vs Man City).
-     * @param _betTypeId The ID for the specific prediction type (e.g., 1 for "PSG to win").
-     * @param _tokenAddress The contract address of the Fan Token being staked.
-     * @param _influencerStake The amount of tokens the influencer is staking.
-     * @param _resolutionTimestamp The future timestamp when the outcome will be known.
-     */
+    // --- PASTE THE REST OF YOUR WORKING FUNCTIONS HERE ---
+    // (createBet, upvote, downvote, claimWinnings, resolveBet, etc.)
+    // They do not need to be changed.
     function createBet(
         uint256 _matchId,
         uint8 _betTypeId,
@@ -105,12 +107,12 @@ contract Predictionbet_v2 is Ownable, ReentrancyGuard {
         uint256 betId = bets.length;
         upvoterStakes[betId][msg.sender] = _influencerStake;
 
-        // Store the structured identifiers
         betIdentifiers[betId] = BetIdentifier(_matchId, _betTypeId);
 
         bets.push(Bet({
             influencer: msg.sender,
             tokenAddress: _tokenAddress,
+            influencerStake: _influencerStake,
             upvotePoolTotal: _influencerStake,
             downvotePoolTotal: 0,
             resolutionTimestamp: _resolutionTimestamp,
@@ -164,8 +166,6 @@ contract Predictionbet_v2 is Ownable, ReentrancyGuard {
     }
 
 
-    // --- Owner-Only & Internal Functions ---
-
     function resolveBet(uint256 _betId, bool _wasInfluencerRight) external onlyOwner {
         require(_betId < bets.length, "Bet does not exist");
         Bet storage bet = bets[_betId];
@@ -195,8 +195,6 @@ contract Predictionbet_v2 is Ownable, ReentrancyGuard {
         emit Voted(_betId, msg.sender, _amount, _isUpvote);
     }
     
-    // --- Admin & View Functions ---
-
     function setMinimumStake(uint256 _newAmount) external onlyOwner {
         minimumInfluencerStake = _newAmount;
     }
@@ -204,4 +202,5 @@ contract Predictionbet_v2 is Ownable, ReentrancyGuard {
     function getBetCount() external view returns (uint256) {
         return bets.length;
     }
+
 }

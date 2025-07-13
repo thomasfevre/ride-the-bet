@@ -238,6 +238,11 @@ export const RIDETHEBET_ABI =[
 			},
 			{
 				"internalType": "uint256",
+				"name": "influencerStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "upvotePoolTotal",
 				"type": "uint256"
 			},

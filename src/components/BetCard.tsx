@@ -65,7 +65,7 @@ export default function BetCard({ betId }: BetCardProps) {
 
   if (!bet || !betIdentifiers) return null;
 
-  const [influencer, , upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
+  const [influencer, , influencerStake, upvotePoolTotal, downvotePoolTotal, resolutionTimestamp, isResolved, influencerWasRight] = bet;
   const [matchId, betTypeId] = betIdentifiers;
 
   // Get human-readable description from bet catalog
@@ -105,20 +105,51 @@ export default function BetCard({ betId }: BetCardProps) {
             <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}>
               {getStatusText()}
             </span>
+            {influencer.toLowerCase() === account?.address?.toLowerCase() && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 dark:from-yellow-900/30 dark:to-yellow-800/30 dark:text-yellow-300">
+                🏆 Your Prediction
+              </span>
+            )}
           </div>
           <p className="text-sm font-medium text-dynamic">{description}</p>
           <p className="text-xs text-dynamic-muted mt-1">
-            by {influencer.toLowerCase() === account?.address?.toLowerCase() ? "You" : `${influencer.slice(0, 6)}...${influencer.slice(-4)}`}
+            by {influencer.toLowerCase() === account?.address?.toLowerCase() ? 
+              `You (${(Number(influencerStake) / 10**18).toFixed(2)} PSG stake)` : 
+              `${influencer.slice(0, 6)}...${influencer.slice(-4)} (${(Number(influencerStake) / 10**18).toFixed(2)} PSG stake)`
+            }
           </p>
         </div>
       </div>
 
       {/* Pool Information */}
       <div className="mb-4">
-        <div className="flex justify-between text-xs text-dynamic-secondary mb-2">
-          <span>Supporters ({(Number(upvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
-          <span>Doubters ({(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
+        {/* Influencer's Initial Stake */}
+        <div className="mb-3 p-3 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border border-primary-500/20 rounded-2xl">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs font-medium text-primary-600 dark:text-primary-400">
+              🎯 Influencer's Prediction Stake
+            </span>
+            <span className="text-xs font-bold text-primary-700 dark:text-primary-300">
+              {(Number(influencerStake) / 10**18).toFixed(2)} PSG
+            </span>
+          </div>
+          <p className="text-xs text-dynamic-muted">Initial stake put down by the influencer</p>
         </div>
+
+        {/* Community Voting Pools */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs text-dynamic-secondary mb-2">
+            <span>💪 Total Supporters ({(Number(upvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
+            <span>🚫 Total Doubters ({(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG)</span>
+          </div>
+          
+          {/* Additional supporters breakdown */}
+          <div className="flex justify-between text-xs text-dynamic-muted mb-2">
+            <span>└ Additional support: {((Number(upvotePoolTotal) - Number(influencerStake)) / 10**18).toFixed(2)} PSG</span>
+            <span>└ Community doubts: {(Number(downvotePoolTotal) / 10**18).toFixed(2)} PSG</span>
+          </div>
+        </div>
+
         <div className="w-full bg-dynamic-secondary/20 rounded-full h-3 mb-2">
           <div 
             className="bg-gradient-to-r from-success-500 to-primary-500 h-3 rounded-full transition-all duration-300 shadow-sm"
