@@ -1,6 +1,7 @@
 # ⚡️ Ride The Bet - Prediction bets dApp  
 
 Live at : https://ride-the-bet.vercel.app/
+Project Demo Video on Devfolio : https://devfolio.co/projects/ridethebet-b84a
 
 A decentralized prediction market built on Chiliz Spicy Testnet where users can create prediction bets, stake tokens on outcomes, and earn from correct predictions.
 
