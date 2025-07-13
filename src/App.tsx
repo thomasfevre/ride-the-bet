@@ -72,7 +72,7 @@ function App() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-secondary-500/10 to-accent-500/10 dark:from-primary-400/20 dark:via-secondary-400/20 dark:to-accent-400/20"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h2 className="text-4xl font-bold gradient-text mb-4 animate-slide-in">
+              <h2 className="text-4xl font-bold gradient-text mb-4 animate-slide-in h-8">
                 Bet Big, Win Bigger: Decentralized Predictions Unleashed
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-slide-in">
@@ -86,7 +86,7 @@ function App() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Create Bet Section */}
-            <div className="lg:col-span-1 space-y-6">
+            <div className="lg:col-span-1 space-y-6 lg:mt-14">
               <WalletInfo />
               <AdminPanel />
 
